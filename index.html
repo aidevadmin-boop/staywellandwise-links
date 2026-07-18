@@ -53,6 +53,33 @@
     font-weight: 600; margin-top: -20px;
   }
   .empty { opacity: 0.6; font-size: 0.9rem; text-align: center; }
+  .email-section {
+    width: 100%; margin-top: 36px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .email-heading {
+    font-family: "Sora", sans-serif;
+    font-weight: 600; font-size: 1rem; margin: 0; text-align: center;
+  }
+  .email-subtext {
+    font-size: 0.8rem; opacity: 0.7; text-align: center; margin: -6px 0 4px; max-width: 340px;
+  }
+  .email-form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .email-input {
+    width: 100%; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: var(--card-bg); color: #111;
+    font-family: "Plus Jakarta Sans", sans-serif; font-size: 0.95rem;
+  }
+  .email-input::placeholder { color: rgba(17,17,17,0.5); }
+  .email-submit {
+    width: 100%; padding: 14px 16px; border-radius: 14px; border: none;
+    background: var(--accent); color: #111;
+    font-family: "Sora", sans-serif; font-weight: 600; font-size: 0.95rem;
+    cursor: pointer;
+  }
+  /* Honeypot field: hidden from real visitors, still present in the DOM for bots to fill in */
+  .hp-field { position: absolute; left: -9999px; top: -9999px; }
   footer {
     margin-top: 40px; font-size: 0.75rem; opacity: 0.5;
   }
@@ -64,6 +91,19 @@
     <p class="tagline">Most content makes you feel something. StayWellAndWise makes you do something.</p>
     <div class="cards">
       <p class="empty">More coming soon.</p>
+    </div>
+    <div class="email-section">
+      <p class="email-heading">Stay in the loop</p>
+      <p class="email-subtext">Get new drops and updates straight to your inbox.</p>
+      <form name="email-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="email-form">
+        <input type="hidden" name="form-name" value="email-signup" />
+        <p class="hp-field">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+        <input class="email-input" type="email" name="email" placeholder="you@example.com"
+               required aria-label="Email address">
+        <button class="email-submit" type="submit">Subscribe</button>
+      </form>
     </div>
     <footer>StayWellAndWise</footer>
   </div>
