@@ -9,103 +9,161 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #000000;
-    --primary: #FFFFFF;
-    --accent: #50C878;
+    --page-bg: #E8DFC8;
     --card-bg: #F0EFEA;
+    --ink: #171512;
+    --ink-soft: rgba(23,21,18,0.62);
+    --ink-faint: rgba(23,21,18,0.42);
+    --hairline: rgba(23,21,18,0.10);
+    --hairline-top: rgba(255,255,255,0.65);
+    --accent: #50C878;
+    --accent-ink: #FFFFFF;
+    --shadow: 0 1px 0 var(--hairline-top) inset, 0 1px 2px rgba(23,21,18,0.05), 0 16px 32px -18px rgba(23,21,18,0.22);
+    --display: "Sora", ui-sans-serif, system-ui, sans-serif;
+    --body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0; min-height: 100vh;
-    background: var(--bg); color: var(--primary);
-    font-family: "Plus Jakarta Sans", sans-serif;
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  .wrap {
-    max-width: 480px; margin: 0 auto;
-    padding: 48px 20px 64px;
-    display: flex; flex-direction: column; align-items: center;
+  .cover {
+    height: 108px;
+    background:
+      radial-gradient(140% 180% at 18% -20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+      linear-gradient(180deg, color-mix(in srgb, var(--ink) 8%, var(--page-bg)) 0%, var(--page-bg) 100%);
+    border-bottom: 1px solid rgba(23,21,18,0.06);
   }
-  h1 {
-    font-family: "Sora", sans-serif;
-    font-size: 1.6rem; font-weight: 700;
-    margin: 0 0 8px; text-align: center;
-  }
-  .tagline {
-    font-size: 0.9rem; opacity: 0.75; text-align: center;
-    margin: 0 0 32px; max-width: 360px; line-height: 1.4;
-  }
-  .cards { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+  .stage { display: flex; justify-content: center; padding: 0 20px 72px; margin-top: -46px; }
+  .col { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 14px; }
   .card {
-    display: flex; flex-direction: column; gap: 4px;
-    background: var(--card-bg); color: #111;
-    border-radius: 16px; padding: 16px 18px;
-    text-decoration: none; border: 1px solid rgba(0,0,0,0.06);
-    transition: transform 0.15s ease;
+    background: var(--card-bg);
+    border-radius: 18px;
+    border: 1px solid var(--hairline);
+    box-shadow: var(--shadow);
   }
-  .card:hover { transform: translateY(-2px); }
-  .card-name {
-    font-family: "Sora", sans-serif;
-    font-weight: 600; font-size: 1rem;
+  .avatar-row { display: flex; justify-content: center; }
+  .avatar {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #ffffff, #f1ece0);
+    border: 3px solid var(--card-bg);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 10px 22px -10px rgba(23,21,18,0.35);
+    display: grid; place-items: center;
+    position: relative;
+    overflow: hidden;
   }
-  .card-desc { font-size: 0.85rem; opacity: 0.75; }
-  .card::after {
-    content: "→"; align-self: flex-end; color: var(--accent);
-    font-weight: 600; margin-top: -20px;
+  .avatar-img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-mark {
+    font-family: var(--display); font-weight: 800;
+    font-size: 1.5rem; letter-spacing: -0.02em; color: var(--accent);
   }
-  .empty { opacity: 0.6; font-size: 0.9rem; text-align: center; }
-  .email-section {
-    width: 100%; margin-top: 36px;
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  .avatar-ring { position: absolute; inset: -3px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  .masthead { padding: 16px 24px 26px; text-align: center; margin-top: 14px; }
+  h1 {
+    font-family: var(--display); font-weight: 800;
+    font-size: 1.5rem; line-height: 1.16; letter-spacing: -0.01em;
+    text-wrap: balance; margin: 0 0 10px; color: var(--ink);
   }
-  .email-heading {
-    font-family: "Sora", sans-serif;
-    font-weight: 600; font-size: 1rem; margin: 0; text-align: center;
+  .tagline { font-size: 0.86rem; line-height: 1.5; color: var(--ink-soft); max-width: 32ch; margin: 0 auto; }
+  .dispatch {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 20px 22px; text-decoration: none; color: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .email-subtext {
-    font-size: 0.8rem; opacity: 0.7; text-align: center; margin: -6px 0 4px; max-width: 340px;
+  .dispatch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 0 var(--hairline-top) inset, 0 2px 4px rgba(23,21,18,0.06), 0 22px 38px -18px rgba(23,21,18,0.26);
   }
-  .email-form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .topic-icon {
+    flex-shrink: 0; width: 38px; height: 38px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--ink) 6%, var(--card-bg));
+    border: 1px solid var(--hairline);
+    font-size: 18px; line-height: 1;
+  }
+  .dispatch-text { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+  .headline {
+    font-family: var(--display); font-weight: 700; font-size: 1rem;
+    line-height: 1.32; letter-spacing: -0.005em; color: var(--ink);
+  }
+  .beat { font-size: 0.78rem; color: var(--ink-soft); margin-top: 6px; line-height: 1.4; }
+  .arrow {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--accent) 11%, transparent);
+    color: var(--accent); font-size: 14px;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .dispatch:hover .arrow { transform: translateX(2px); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+  .empty { padding: 20px 22px; opacity: 0.6; font-size: 0.9rem; text-align: center; }
+  .capture { padding: 26px 24px 28px; text-align: center; }
+  .capture-head { font-family: var(--display); font-weight: 700; font-size: 1rem; margin: 0 0 4px; color: var(--ink); }
+  .capture-sub { font-size: 0.8rem; color: var(--ink-soft); margin: 0 0 18px; }
+  .capture-row { display: flex; gap: 8px; }
   .email-input {
-    width: 100%; padding: 14px 16px; border-radius: 14px;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: var(--card-bg); color: #111;
-    font-family: "Plus Jakarta Sans", sans-serif; font-size: 0.95rem;
+    flex: 1; min-width: 0; padding: 13px 15px; border-radius: 12px;
+    border: 1px solid var(--hairline); background: color-mix(in srgb, var(--ink) 4%, var(--page-bg));
+    color: var(--ink); font-family: var(--body); font-size: 0.92rem;
   }
-  .email-input::placeholder { color: rgba(17,17,17,0.5); }
+  .email-input::placeholder { color: var(--ink-faint); }
+  .email-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .email-submit {
-    width: 100%; padding: 14px 16px; border-radius: 14px; border: none;
-    background: var(--accent); color: #111;
-    font-family: "Sora", sans-serif; font-weight: 600; font-size: 0.95rem;
-    cursor: pointer;
+    font-family: var(--display); font-weight: 700; font-size: 0.86rem; padding: 0 20px;
+    border-radius: 12px; border: none; background: var(--accent); color: var(--accent-ink);
+    cursor: pointer; white-space: nowrap; transition: transform 0.12s ease, filter 0.15s ease;
   }
+  .email-submit:hover { filter: brightness(0.92); transform: translateY(-1px); }
+  .email-submit:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   /* Honeypot field: hidden from real visitors, still present in the DOM for bots to fill in */
   .hp-field { position: absolute; left: -9999px; top: -9999px; }
-  footer {
-    margin-top: 40px; font-size: 0.75rem; opacity: 0.5;
-  }
+  footer { padding: 10px 6px 0; display: flex; align-items: center; justify-content: space-between; }
+  .foot-label { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>StayWellAndWise</h1>
-    <p class="tagline">Most content makes you feel something. StayWellAndWise makes you do something.</p>
-    <div class="cards">
+<div class="cover"></div>
+<div class="stage">
+  <main class="col" aria-label="StayWellAndWise link in bio">
+
+    <div class="avatar-row">
+      <div class="avatar">
+        <div class="avatar-ring"></div>
+        <span class="avatar-mark">SW</span>
+      </div>
+    </div>
+
+    <div class="card masthead">
+      <h1>StayWellAndWise</h1>
+      <p class="tagline">Most content makes you feel something. StayWellAndWise makes you do something.</p>
+    </div>
+
+    <div class="col" style="gap:14px;">
       <p class="empty">More coming soon.</p>
     </div>
-    <div class="email-section">
-      <p class="email-heading">Stay in the loop</p>
-      <p class="email-subtext">Get new drops and updates straight to your inbox.</p>
-      <form name="email-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="email-form">
+
+    <div class="card capture">
+      <p class="capture-head">Stay in the loop</p>
+      <p class="capture-sub">Get new drops and updates straight to your inbox.</p>
+      <form name="email-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="capture-row">
         <input type="hidden" name="form-name" value="email-signup" />
         <p class="hp-field">
           <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </p>
-        <input class="email-input" type="email" name="email" placeholder="you@example.com"
-               required aria-label="Email address">
+        <input class="email-input" type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
         <button class="email-submit" type="submit">Subscribe</button>
       </form>
     </div>
-    <footer>StayWellAndWise</footer>
-  </div>
+
+    <footer>
+      <span class="foot-label">StayWellAndWise</span>
+    </footer>
+
+  </main>
+</div>
 </body>
 </html>
