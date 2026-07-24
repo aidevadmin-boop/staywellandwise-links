@@ -165,5 +165,23 @@
 
   </main>
 </div>
+<form name="click-track" method="POST" data-netlify="true" hidden>
+  <input type="hidden" name="form-name" value="click-track" />
+  <input type="text" name="recommendation_id" />
+</form>
+<script>
+(function(){
+  document.querySelectorAll('.dispatch[data-rec-id]').forEach(function(el){
+    el.addEventListener('click', function(){
+      try {
+        navigator.sendBeacon('/', new URLSearchParams({
+          'form-name': 'click-track',
+          'recommendation_id': el.dataset.recId
+        }));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
 </body>
 </html>
